@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap");
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-body bg-primary-bg text-text-primary transition-colors duration-300;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display;
+  }
+}
+
+@layer utilities {
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Bold Outline Typography */
+  .text-outline-bold {
+    -webkit-text-stroke: 2px white;
+    -webkit-text-fill-color: transparent;
+    paint-order: stroke fill;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+  }
+
+  .text-solid-bold {
+    font-weight: 900;
+    color: white;
+    letter-spacing: -0.02em;
+  }
+
+  /* Vignette & Glow Effects */
+  .vignette-glow {
+    position: relative;
+  }
+
+  .vignette-glow::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Mobile: very light vignette */
+  @media (max-width: 767px) {
+    .vignette-glow::before {
+      background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.15) 100%);
+    }
+  }
+
+  /* Desktop: stronger vignette */
+  @media (min-width: 768px) {
+    .vignette-glow::before {
+      background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.4) 100%);
+    }
+  }
+
+  .glow-teal {
+    box-shadow: 0 0 60px 20px rgba(20, 184, 166, 0.3);
+  }
+
+  .glow-orange {
+    box-shadow: 0 0 40px 10px rgba(249, 115, 22, 0.4);
+  }
+
+  /* Glassmorphism */
+  .glass-effect {
+    @apply backdrop-blur-md bg-white/5 border border-white/10;
+  }
+
+  /* Background Text */
+  .bg-text {
+    position: absolute;
+    font-size: 20vw;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.02);
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  /* Scale down decorative blurs on mobile instead of hiding completely */
+  @media (max-width: 767px) {
+    .blur-3xl {
+      transform: scale(0.4) !important;
+      opacity: 0.3 !important;
+    }
+  }
+}
+
+/* Smooth Scrolling with Lenis-like behavior */
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
