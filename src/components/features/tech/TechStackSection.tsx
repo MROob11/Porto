@@ -16,6 +16,9 @@ const techStack = [
   { name: 'TypeScript', category: 'Frontend', logo: '/tech-logos/typescript.svg', color: '#3178C6' },
   { name: 'JavaScript', category: 'Frontend', logo: '/tech-logos/javascript.svg', color: '#F7DF1E' },
   { name: 'Tailwind CSS', category: 'Frontend', logo: '/tech-logos/tailwindcss.svg', color: '#06B6D4' },
+  { name: 'HTML5', category: 'Frontend', logo: '/tech-logos/html5.svg', color: '#06B6D4' },
+  { name: 'CSS', category: 'Frontend', logo: '/tech-logos/css.svg', color: '#06B6D4' },
+
   
   { name: 'Node.js', category: 'Backend', logo: '/tech-logos/nodedotjs.svg', color: '#339933' },
   { name: 'Python', category: 'Backend', logo: '/tech-logos/python.svg', color: '#3776AB' },
