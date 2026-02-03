@@ -178,6 +178,7 @@ export function TechStackSection() {
                           height={48}
                           className="object-contain group-hover:scale-110 transition-transform duration-300"
                           style={{ filter: `drop-shadow(0 0 8px ${tech.color}40)` }}
+                          unoptimized
                         />
                       </div>
 
