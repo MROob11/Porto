@@ -19,6 +19,7 @@ const techStack = [
   { name: 'HTML5', category: 'Frontend', logo: '/tech-logos/html5.svg', color: '#E34F26' },
   { name: 'CSS', category: 'Frontend', logo: '/tech-logos/css.svg', color: '#663399' },
 
+
   
   { name: 'Node.js', category: 'Backend', logo: '/tech-logos/nodedotjs.svg', color: '#339933' },
   { name: 'Python', category: 'Backend', logo: '/tech-logos/python.svg', color: '#3776AB' },
@@ -212,3 +213,4 @@ export function TechStackSection() {
     </section>
   );
 }
+
