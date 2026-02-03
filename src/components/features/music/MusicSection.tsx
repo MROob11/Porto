@@ -55,64 +55,72 @@ export function MusicSection() {
         className="relative min-h-screen bg-black overflow-hidden py-20"
       >
         {/* Animated Floating Gradient Orbs */}
-        <motion.div
-          animate={{
-            x: [0, 100, 0],
-            y: [0, -80, 0],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute top-20 left-10 w-96 h-96 bg-primary-teal/20 rounded-full blur-3xl"
-        />
-        
-        <motion.div
-          animate={{
-            x: [0, -120, 0],
-            y: [0, 100, 0],
-            scale: [1, 1.3, 1],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2
-          }}
-          className="absolute top-1/3 right-20 w-[500px] h-[500px] bg-primary-cyan/20 rounded-full blur-3xl"
-        />
-        
-        <motion.div
-          animate={{
-            x: [0, 80, 0],
-            y: [0, -60, 0],
-            scale: [1, 1.15, 1],
-          }}
-          transition={{
-            duration: 18,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 4
-          }}
-          className="absolute bottom-20 left-1/3 w-[400px] h-[400px] bg-accent-orange/15 rounded-full blur-3xl"
-        />
-        
-        <motion.div
-          animate={{
-            x: [0, -60, 0],
-            y: [0, 90, 0],
-            scale: [1, 1.25, 1],
-          }}
-          transition={{
-            duration: 22,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1
-          }}
-          className="absolute bottom-40 right-1/4 w-80 h-80 bg-purple-500/15 rounded-full blur-3xl"
-        />
+        {/* Waveform Animation Background */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-30">
+          <div className="flex items-center gap-1.5 md:gap-3 h-64">
+            {[...Array(15)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="w-1.5 md:w-3 bg-gradient-to-t from-primary-teal/40 via-primary-cyan to-primary-teal/40 rounded-full shadow-[0_0_15px_rgba(20,184,166,0.5)]"
+                animate={{
+                  height: [
+                    "15%",
+                    `${Math.random() * 60 + 30}%`,
+                    "15%"
+                  ]
+                }}
+                transition={{
+                  duration: 1.2 + Math.random() * 0.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: i * 0.1,
+                  repeatType: "reverse"
+                }}
+              />
+            ))}
+            {/* Center Peak Bars (Taller) */}
+            {[...Array(5)].map((_, i) => (
+              <motion.div
+                key={`center-${i}`}
+                className="w-1.5 md:w-3 bg-gradient-to-t from-primary-teal/60 via-white to-primary-teal/60 rounded-full shadow-[0_0_20px_rgba(255,255,255,0.6)]"
+                animate={{
+                  height: [
+                    "30%",
+                    `${Math.random() * 70 + 60}%`,
+                    "30%"
+                  ]
+                }}
+                transition={{
+                  duration: 0.8 + Math.random() * 0.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: i * 0.15,
+                  repeatType: "reverse"
+                }}
+              />
+            ))}
+            {[...Array(15)].map((_, i) => (
+              <motion.div
+                key={`right-${i}`}
+                className="w-1.5 md:w-3 bg-gradient-to-t from-primary-teal/40 via-primary-cyan to-primary-teal/40 rounded-full shadow-[0_0_15px_rgba(20,184,166,0.5)]"
+                animate={{
+                  height: [
+                    "15%",
+                    `${Math.random() * 60 + 30}%`,
+                    "15%"
+                  ]
+                }}
+                transition={{
+                  duration: 1.2 + Math.random() * 0.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: i * 0.1,
+                  repeatType: "reverse"
+                }}
+              />
+            ))}
+          </div>
+        </div>
 
         {/* Stars Background with subtle animation */}
         <motion.div 
