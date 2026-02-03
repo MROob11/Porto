@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Play, Pause, SkipBack, SkipForward, Volume2, VolumeX } from 'lucide-react';
 
@@ -89,7 +89,26 @@ export function FullscreenMusicPlayer({
       setCurrentLyricIndex(currentIndex);
     // }
   }, [currentTime, lyrics]);
-
+  // Optimize waveform animation data
+  const barData = useMemo(() => {
+    return {
+      left: [...Array(12)].map((_, i) => ({
+        heights: ["20%", `${Math.random() * 50 + 20}%`, "20%"],
+        duration: 0.8 + Math.random() * 0.5,
+        delay: i * 0.1
+      })),
+      center: [...Array(6)].map((_, i) => ({
+        heights: ["40%", `${Math.random() * 80 + 40}%`, "40%"],
+        duration: 0.5 + Math.random() * 0.5,
+        delay: i * 0.1
+      })),
+      right: [...Array(12)].map((_, i) => ({
+        heights: ["20%", `${Math.random() * 50 + 20}%`, "20%"],
+        duration: 0.8 + Math.random() * 0.5,
+        delay: i * 0.1
+      }))
+    };
+  }, []);
 
 
   // Keyboard controls
@@ -170,54 +189,48 @@ export function FullscreenMusicPlayer({
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
           <div className="flex items-center gap-2 md:gap-4 h-96">
             {/* Left Side */}
-            {[...Array(12)].map((_, i) => (
+            {barData.left.map((bar, i) => (
               <motion.div
                 key={`left-${i}`}
                 className="w-2 md:w-3 bg-white/20 rounded-full"
-                animate={{
-                  height: ["20%", `${Math.random() * 50 + 20}%`, "20%"]
-                }}
+                animate={isPlaying ? { height: bar.heights } : { height: "20%" }}
                 transition={{
-                  duration: 0.8 + Math.random() * 0.5,
+                  duration: bar.duration,
                   repeat: Infinity,
                   ease: "easeInOut",
-                  delay: i * 0.1,
+                  delay: bar.delay,
                   repeatType: "reverse"
                 }}
               />
             ))}
             
             {/* Center Peak */}
-            {[...Array(6)].map((_, i) => (
+            {barData.center.map((bar, i) => (
               <motion.div
                 key={`center-${i}`}
                 className="w-2 md:w-4 bg-primary-teal rounded-full shadow-[0_0_20px_rgba(20,184,166,0.5)]"
-                animate={{
-                  height: ["40%", `${Math.random() * 80 + 40}%`, "40%"]
-                }}
+                animate={isPlaying ? { height: bar.heights } : { height: "40%" }}
                 transition={{
-                  duration: 0.5 + Math.random() * 0.5,
+                  duration: bar.duration,
                   repeat: Infinity,
                   ease: "easeInOut",
-                  delay: i * 0.1,
+                  delay: bar.delay,
                   repeatType: "reverse"
                 }}
               />
             ))}
 
             {/* Right Side */}
-            {[...Array(12)].map((_, i) => (
+            {barData.right.map((bar, i) => (
               <motion.div
                 key={`right-${i}`}
                 className="w-2 md:w-3 bg-white/20 rounded-full"
-                animate={{
-                  height: ["20%", `${Math.random() * 50 + 20}%`, "20%"]
-                }}
+                animate={isPlaying ? { height: bar.heights } : { height: "20%" }}
                 transition={{
-                  duration: 0.8 + Math.random() * 0.5,
+                  duration: bar.duration,
                   repeat: Infinity,
                   ease: "easeInOut",
-                  delay: i * 0.1,
+                  delay: bar.delay,
                   repeatType: "reverse"
                 }}
               />
