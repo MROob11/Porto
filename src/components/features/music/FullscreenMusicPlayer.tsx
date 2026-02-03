@@ -41,7 +41,7 @@ export function FullscreenMusicPlayer({
   const [volume, setVolume] = useState(1);
   const [isMuted, setIsMuted] = useState(false);
   const [currentLyricIndex, setCurrentLyricIndex] = useState(-1);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [currentLyricIndex, setCurrentLyricIndex] = useState(-1);
 
   const currentSong = songs[currentIndex];
   const lyrics = currentSong.lyrics || [];
@@ -91,92 +91,7 @@ export function FullscreenMusicPlayer({
     // }
   }, [currentTime, lyrics]);
 
-  // Animated particle background using Canvas
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    // Store canvas dimensions to avoid null checks in Particle class
-    const canvasWidth = canvas.width;
-    const canvasHeight = canvas.height;
-
-    const particles: Particle[] = [];
-    const particleCount = 100;
-
-    class Particle {
-      x: number;
-      y: number;
-      size: number;
-      speedX: number;
-      speedY: number;
-      opacity: number;
-
-      constructor() {
-        this.x = Math.random() * canvasWidth;
-        this.y = Math.random() * canvasHeight;
-        this.size = Math.random() * 3 + 1;
-        this.speedX = (Math.random() - 0.5) * 0.5;
-        this.speedY = (Math.random() - 0.5) * 0.5;
-        this.opacity = Math.random() * 0.5 + 0.3;
-      }
-
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-        if (this.x > canvasWidth) this.x = 0;
-        if (this.x < 0) this.x = canvasWidth;
-        if (this.y > canvasHeight) this.y = 0;
-        if (this.y < 0) this.y = canvasHeight;
-      }
-
-      draw() {
-        if (!ctx) return;
-        ctx.fillStyle = `rgba(20, 184, 166, ${this.opacity})`;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    // Initialize particles
-    for (let i = 0; i < particleCount; i++) {
-      particles.push(new Particle());
-    }
-
-    let animationId: number;
-    const animate = () => {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      particles.forEach((particle) => {
-        particle.update();
-        particle.draw();
-      });
-
-      animationId = requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      cancelAnimationFrame(animationId);
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   // Keyboard controls
   useEffect(() => {
@@ -252,38 +167,63 @@ export function FullscreenMusicPlayer({
         exit={{ opacity: 0 }}
         className="fixed inset-0 z-50 bg-black"
       >
-        {/* Animated Canvas Background */}
-        <canvas
-          ref={canvasRef}
-          className="absolute inset-0 w-full h-full"
-        />
+        {/* Waveform Animation Background */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
+          <div className="flex items-center gap-2 md:gap-4 h-96">
+            {/* Left Side */}
+            {[...Array(12)].map((_, i) => (
+              <motion.div
+                key={`left-${i}`}
+                className="w-2 md:w-3 bg-white/20 rounded-full"
+                animate={{
+                  height: ["20%", `${Math.random() * 50 + 20}%`, "20%"]
+                }}
+                transition={{
+                  duration: 0.8 + Math.random() * 0.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: i * 0.1,
+                  repeatType: "reverse"
+                }}
+              />
+            ))}
+            
+            {/* Center Peak */}
+            {[...Array(6)].map((_, i) => (
+              <motion.div
+                key={`center-${i}`}
+                className="w-2 md:w-4 bg-primary-teal rounded-full shadow-[0_0_20px_rgba(20,184,166,0.5)]"
+                animate={{
+                  height: ["40%", `${Math.random() * 80 + 40}%`, "40%"]
+                }}
+                transition={{
+                  duration: 0.5 + Math.random() * 0.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: i * 0.1,
+                  repeatType: "reverse"
+                }}
+              />
+            ))}
 
-        {/* Animated Wave/Circle Elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {[...Array(5)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute rounded-full border-2 border-primary-teal/20"
-              style={{
-                width: `${200 + i * 100}px`,
-                height: `${200 + i * 100}px`,
-                left: '50%',
-                top: '50%',
-                marginLeft: `-${100 + i * 50}px`,
-                marginTop: `-${100 + i * 50}px`,
-              }}
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.1, 0.3, 0.1],
-              }}
-              transition={{
-                duration: 4 + i,
-                repeat: Infinity,
-                ease: 'easeInOut',
-                delay: i * 0.5,
-              }}
-            />
-          ))}
+            {/* Right Side */}
+            {[...Array(12)].map((_, i) => (
+              <motion.div
+                key={`right-${i}`}
+                className="w-2 md:w-3 bg-white/20 rounded-full"
+                animate={{
+                  height: ["20%", `${Math.random() * 50 + 20}%`, "20%"]
+                }}
+                transition={{
+                  duration: 0.8 + Math.random() * 0.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: i * 0.1,
+                  repeatType: "reverse"
+                }}
+              />
+            ))}
+          </div>
         </div>
 
         {/* Background Album Grid (Faded) */}
