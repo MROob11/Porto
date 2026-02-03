@@ -98,8 +98,8 @@ export function Navbar() {
       }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled 
-          ? 'bg-black/20 backdrop-blur-xl border-b border-white/5' 
-          : 'bg-transparent'
+          ? 'bg-black/80 backdrop-blur-xl border-b border-white/5 shadow-lg' 
+          : 'bg-black/20 backdrop-blur-sm md:bg-transparent md:backdrop-blur-none'
       }`}
     >
       <div className="container-custom">
@@ -189,7 +189,7 @@ export function Navbar() {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth={2}
+                  strokeWidth={2.5}
                   d="M6 18L18 6M6 6l12 12"
                 />
               ) : (
@@ -197,7 +197,7 @@ export function Navbar() {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth={2}
+                  strokeWidth={2.5}
                   d="M4 6h16M4 12h16M4 18h16"
                 />
               )}
