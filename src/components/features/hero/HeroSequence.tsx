@@ -14,7 +14,7 @@ export function HeroSequence() {
   const { canvasRef, preloadImages, imagesRef } = useCanvasScale({
     frameCount: FRAME_COUNT,
     scrollProgress: 0,
-    step: 3, // Load every 3rd frame (192 -> 64 frames)
+    step: 6, // Load every 6th frame (192 -> 32 frames ~ 1.5MB)
   });
 
   const { scrollYProgress } = useScroll({
