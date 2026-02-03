@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Image from 'next/image';
+
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -171,14 +171,13 @@ export function TechStackSection() {
                       className="relative bg-white/80 backdrop-blur-sm border-2 border-gray-200/50 rounded-xl p-6 group cursor-default hover:border-primary-teal/30 hover:shadow-lg transition-all duration-300"
                     >
                       <div className="flex justify-center mb-4 relative h-12">
-                        <Image
+                        <img
                           src={tech.logo}
                           alt={`${tech.name} logo`}
                           width={48}
                           height={48}
                           className="object-contain group-hover:scale-110 transition-transform duration-300"
                           style={{ filter: `drop-shadow(0 0 8px ${tech.color}40)` }}
-                          unoptimized
                         />
                       </div>
 
