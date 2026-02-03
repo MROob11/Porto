@@ -41,7 +41,6 @@ export function FullscreenMusicPlayer({
   const [volume, setVolume] = useState(1);
   const [isMuted, setIsMuted] = useState(false);
   const [currentLyricIndex, setCurrentLyricIndex] = useState(-1);
-  const [currentLyricIndex, setCurrentLyricIndex] = useState(-1);
 
   const currentSong = songs[currentIndex];
   const lyrics = currentSong.lyrics || [];
