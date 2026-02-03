@@ -11,9 +11,10 @@ export function HeroSequence() {
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [imagesLoaded, setImagesLoaded] = useState(false);
 
-  const { canvasRef, preloadImages, renderFrame } = useCanvasScale({
+  const { canvasRef, preloadImages, imagesRef } = useCanvasScale({
     frameCount: FRAME_COUNT,
     scrollProgress: 0,
+    step: 3, // Load every 3rd frame (192 -> 64 frames)
   });
 
   const { scrollYProgress } = useScroll({
@@ -41,27 +42,16 @@ export function HeroSequence() {
     const canvas = canvasRef.current;
     if (!canvas || !containerRef.current) return;
 
-    const handleResize = () => {
-      if (canvas) {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        renderFrame();
-      }
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-
-    const unsubscribe = scrollYProgress.on('change', (latest) => {
-      const images = (canvasRef.current as any).__images;
-      if (!images) return;
+    const drawFrame = (progress: number) => {
+      const images = imagesRef.current;
+      if (!images || images.length === 0) return;
 
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
 
       const frameIndex = Math.min(
-        FRAME_COUNT - 1,
-        Math.floor(latest * FRAME_COUNT)
+        images.length - 1,
+        Math.floor(progress * images.length)
       );
 
       const img = images[frameIndex];
@@ -87,35 +77,29 @@ export function HeroSequence() {
       }
 
       ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+    };
+
+    const handleResize = () => {
+      if (canvas) {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        // Redraw current frame
+        drawFrame(scrollYProgress.get());
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    const unsubscribe = scrollYProgress.on('change', (latest) => {
+      requestAnimationFrame(() => drawFrame(latest));
     });
 
     return () => {
       window.removeEventListener('resize', handleResize);
       unsubscribe();
     };
-  }, [imagesLoaded, scrollYProgress, canvasRef, renderFrame]);
-
-  useEffect(() => {
-    if (!imagesLoaded) return;
-    
-    const loadImages = async () => {
-      const images: HTMLImageElement[] = [];
-      for (let i = 1; i <= FRAME_COUNT; i++) {
-        const img = new Image();
-        img.src = `/sequence/ezgif-frame-${i.toString().padStart(3, '0')}.jpg`;
-        images.push(img);
-        await new Promise((resolve) => {
-          img.onload = resolve;
-          img.onerror = resolve;
-        });
-      }
-      if (canvasRef.current) {
-        (canvasRef.current as any).__images = images;
-      }
-    };
-
-    loadImages();
-  }, [imagesLoaded, canvasRef]);
+  }, [imagesLoaded, scrollYProgress, canvasRef, imagesRef]);
 
   return (
     <>

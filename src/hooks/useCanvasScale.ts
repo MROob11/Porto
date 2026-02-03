@@ -3,9 +3,10 @@ import { useEffect, useRef } from 'react';
 interface UseCanvasScaleOptions {
   frameCount: number;
   scrollProgress: number;
+  step?: number; // Skip frames (e.g. 3 = load every 3rd frame)
 }
 
-export function useCanvasScale({ frameCount, scrollProgress }: UseCanvasScaleOptions) {
+export function useCanvasScale({ frameCount, scrollProgress, step = 1 }: UseCanvasScaleOptions) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const loadedCountRef = useRef(0);
@@ -44,24 +45,28 @@ export function useCanvasScale({ frameCount, scrollProgress }: UseCanvasScaleOpt
     return new Promise<HTMLImageElement[]>((resolve) => {
       const images: HTMLImageElement[] = [];
       loadedCountRef.current = 0;
+      
+      // Calculate total frames to load based on step
+      const totalFramesToLoad = Math.floor(frameCount / step);
+      let loadedFrames = 0;
 
-      for (let i = 1; i <= frameCount; i++) {
+      for (let i = 1; i <= frameCount; i += step) {
         const img = new Image();
         img.onload = () => {
-          loadedCountRef.current++;
-          const progress = Math.round((loadedCountRef.current / frameCount) * 100);
-          onProgress(progress);
+          loadedFrames++;
+          const progress = Math.round((loadedFrames / totalFramesToLoad) * 100);
+          onProgress(Math.min(progress, 100));
 
-          if (loadedCountRef.current === frameCount) {
+          if (loadedFrames >= totalFramesToLoad) {
             resolve(images);
           }
         };
         img.onerror = () => {
-          loadedCountRef.current++;
-          const progress = Math.round((loadedCountRef.current / frameCount) * 100);
-          onProgress(progress);
+          loadedFrames++;
+          const progress = Math.round((loadedFrames / totalFramesToLoad) * 100);
+          onProgress(Math.min(progress, 100));
 
-          if (loadedCountRef.current === frameCount) {
+          if (loadedFrames >= totalFramesToLoad) {
             resolve(images);
           }
         };
@@ -84,10 +89,11 @@ export function useCanvasScale({ frameCount, scrollProgress }: UseCanvasScaleOpt
     const images = imagesRef.current;
     if (images.length === 0) return;
 
-    // Map scroll progress to frame index
+    // Map scroll progress to reduced frame index
+    const totalFrames = images.length;
     const frameIndex = Math.min(
-      frameCount - 1,
-      Math.floor(scrollProgress * frameCount)
+      totalFrames - 1,
+      Math.floor(scrollProgress * totalFrames)
     );
 
     const img = images[frameIndex];
@@ -103,5 +109,6 @@ export function useCanvasScale({ frameCount, scrollProgress }: UseCanvasScaleOpt
     preloadImages,
     renderFrame,
     drawImageCover,
+    imagesRef // Expose images for custom rendering if needed
   };
 }
