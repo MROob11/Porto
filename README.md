@@ -186,7 +186,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 **Mukhtar Fadhlurrohman (Arthur)**
 
-- Portfolio: [Your deployed URL]
+- Portfolio: [mukhtardev.my.id]
 - GitHub: [@MROob11](https://github.com/MROob11)
 - Email: [mukhtarfadhlurrohman111206@gmail.com]
 
