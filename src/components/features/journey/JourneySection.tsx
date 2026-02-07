@@ -12,10 +12,10 @@ if (typeof window !== 'undefined') {
 
 const projects = [
   { 
-    year: '2025 - COMING SOON', 
-    title: 'Portfolio Website', 
-    description: 'Personal portfolio website modern dengan animasi interaktif - Segera launching!',
-    tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
+    year: '2026', 
+    title: 'YGY Grandeur - Luxury Hotel Reservation', 
+    description: 'Platform reservasi hotel bintang lima dengan pengalaman pengguna yang seamless, desain antarmuka elegan, dan sistem pembayaran otomatis.',
+    tech: ['Python', 'Flask', 'MySQL', 'Tailwind CSS', 'Xendit API'],
     link: ''
   },
   { 
