@@ -30,7 +30,7 @@ Semua logo disimpan di: `public/tech-logos/`
 - `apache.svg` atau `apache.png` - Apache logo
 - `xampp.svg` atau `xampp.png` - XAMPP logo
 
-### DevOps & Tools (6 logos)
+### Tools & Tools (6 logos)
 
 - `git.svg` atau `git.png` - Git logo
 - `github.svg` atau `github.png` - GitHub logo

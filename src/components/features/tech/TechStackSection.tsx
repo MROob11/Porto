@@ -11,31 +11,26 @@ if (typeof window !== 'undefined') {
 }
 
 const techStack = [
-  { name: 'React', category: 'Frontend', logo: '/tech-logos/react.svg', color: '#61DAFB' },
-  { name: 'Next.js', category: 'Frontend', logo: '/tech-logos/nextdotjs.svg', color: '#000000' },
-  { name: 'TypeScript', category: 'Frontend', logo: '/tech-logos/typescript.svg', color: '#3178C6' },
   { name: 'JavaScript', category: 'Frontend', logo: '/tech-logos/javascript.svg', color: '#F7DF1E' },
   { name: 'Tailwind CSS', category: 'Frontend', logo: '/tech-logos/tailwindcss.svg', color: '#06B6D4' },
   { name: 'HTML5', category: 'Frontend', logo: '/tech-logos/html5.svg', color: '#E34F26' },
-  { name: 'CSS', category: 'Frontend', logo: '/tech-logos/css.svg', color: '#663399' },
-
-
+  { name: 'CSS3', category: 'Frontend', logo: '/tech-logos/css.svg', color: '#663399' },
+  { name: 'Bootstrap', category: 'Frontend', logo: '/tech-logos/bootstrap.svg', color: '#7952B3' },
   
-  { name: 'Node.js', category: 'Backend', logo: '/tech-logos/nodedotjs.svg', color: '#339933' },
+  
   { name: 'Python', category: 'Backend', logo: '/tech-logos/python.svg', color: '#3776AB' },
   { name: 'PHP', category: 'Backend', logo: '/tech-logos/php.svg', color: '#777BB4' },
   { name: 'Laravel', category: 'Backend', logo: '/tech-logos/laravel.svg', color: '#FF2D20' },
+  { name: 'Flask', category: 'Backend', logo: '/tech-logos/flask.svg', color: '#3BABC3' },
   
   { name: 'MySQL', category: 'Database', logo: '/tech-logos/mysql.svg', color: '#4479A1' },
-  { name: 'Apache', category: 'Database', logo: '/tech-logos/apache.svg', color: '#D22128' },
-  { name: 'XAMPP', category: 'Database', logo: '/tech-logos/xampp.svg', color: '#FB7A24' },
+  { name: 'SQLite', category: 'Database', logo: '/tech-logos/sqlite.svg', color: '#003B57' },
   
-  { name: 'Git', category: 'DevOps', logo: '/tech-logos/git.svg', color: '#F05032' },
-  { name: 'GitHub', category: 'DevOps', logo: '/tech-logos/github.svg', color: '#181717' },
-  { name: 'Docker', category: 'DevOps', logo: '/tech-logos/docker.svg', color: '#2496ED' },
-  { name: 'Vercel', category: 'DevOps', logo: '/tech-logos/vercel.svg', color: '#000000' },
-  { name: 'InfinityFree', category: 'DevOps', logo: '/tech-logos/infinityfree.svg', color: '#00A8E8' },
-    
+  { name: 'Git', category: 'Tools', logo: '/tech-logos/git.svg', color: '#F05032' },
+  { name: 'GitHub', category: 'Tools', logo: '/tech-logos/github.svg', color: '#181717' },
+  { name: 'Xampp', category: 'Tools', logo: '/tech-logos/xampp.svg', color: '#FB7A24' },
+  { name: 'Apache', category: 'Tools', logo: '/tech-logos/apache.svg', color: '#D22128' },
+      
   { name: 'Figma', category: 'Design', logo: '/tech-logos/figma.svg', color: '#F24E1E' },
   { name: 'Photoshop', category: 'Design', logo: '/tech-logos/photoshop-svgrepo-com.svg', color: '#31A8FF' },
   { name: 'Canva', category: 'Design', logo: '/tech-logos/canva-svgrepo-com.svg', color: '#00C4CC' },
@@ -74,7 +69,7 @@ export function TechStackSection() {
     return () => ctx.revert();
   }, []);
 
-  const categories = ['Frontend', 'Backend', 'Database', 'DevOps', 'Design'];
+  const categories = ['Frontend', 'Backend', 'Database', 'Tools', 'Design'];
 
   return (
     <section
