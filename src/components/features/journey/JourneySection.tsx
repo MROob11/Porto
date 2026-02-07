@@ -16,7 +16,7 @@ const projects = [
     title: 'YGY Grandeur - Luxury Hotel Reservation', 
     description: 'Platform reservasi hotel bintang lima dengan pengalaman pengguna yang seamless, desain antarmuka elegan, dan sistem pembayaran otomatis.',
     tech: ['Python', 'Flask', 'MySQL', 'Tailwind CSS', 'Xendit API'],
-    link: ''
+    link: 'https://jogjagrandeur.my.id/'
   },
   { 
     year: '2025 - COMING SOON', 
@@ -35,9 +35,9 @@ const projects = [
 ];
 
 const polaroids = [
-  { src: '/assets/journey/1.jpg', alt: 'Portfolio Website - Coming Soon', rotation: -5 },
-  { src: '/assets/journey/2.jpg', alt: 'E-Commerce Platform - Coming Soon', rotation: 3 },
-  { src: '/assets/journey/3.jpg', alt: 'Booking System - Coming Soon', rotation: -3 },
+  { src: '/assets/journey/web1.png', alt: 'YGY Grandeur - Luxury Hotel Reservation', rotation: -5 },
+  { src: '/assets/journey/2.png', alt: 'E-Commerce Platform - Coming Soon', rotation: 3 },
+  { src: '/assets/journey/3.png', alt: 'Booking System - Coming Soon', rotation: -3 },
 ];
 
 export function JourneySection() {
