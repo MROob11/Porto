@@ -1,6 +1,6 @@
 'use client';
 
-// Force Vercel Redeploy: Update Journey Content
+
 
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
@@ -185,10 +185,12 @@ export function JourneySection() {
                           className="bg-white p-4 shadow-2xl rounded-sm transform"
                           style={{ rotate: `${polaroids[index].rotation}deg` }}
                         >
-                          <div className="w-full aspect-video bg-gradient-to-br from-primary-teal/20 to-primary-cyan/20 rounded-sm mb-3 overflow-hidden relative">
-                            <div className="absolute inset-0 flex items-center justify-center text-gray-400 text-sm">
-                              {index === 0 ? 'COMING SOON 🚧' : 'Screenshot Here'}
-                            </div>
+                          <div className="w-full aspect-video bg-gray-100 rounded-sm mb-3 overflow-hidden relative group-hover:shadow-inner transition-shadow">
+                            <img 
+                              src={polaroids[index].src} 
+                              alt={polaroids[index].alt}
+                              className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                            />
                           </div>
                           <p className="text-xs text-gray-800 text-center font-handwriting">
                             {project.title}
